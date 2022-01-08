@@ -9,7 +9,7 @@ intents.members = True
 birthday = {}
 today = date.today()
 
-bot = commands.Bot(command_prefix='!', description=description, intents=intents)
+bot = commands.Bot(command_prefix='?', description=description, intents=intents)
 
 @bot.event
 async def on_ready():
@@ -31,23 +31,24 @@ async def king(ctx):
     file = discord.File("diane_and_king.jpg",filename="love.jpg")
     await ctx.send("king :smiling_face_with_3_hearts:",file=file)
     
+
 @bot.command()
-async def add(ctx, name: str, birth: str):
+async def add(ctx, user: discord.User, birth: str):
     role = ctx.guild.get_role(928728017428180992)
     if role in ctx.author.roles:
-        await ctx.send("Tu n'as pas la permission de me donner des ordres ! :angry:")
+        birthday.update({f"<@{user.id}>":birth})
+        await ctx.send("Oh ! Un nouvel ami ! " + str(f"<@{user.id}>"))
         print(birthday)
     else:
-        birthday.update({name:birth})
-        await ctx.send("Oh ! Un nouvel ami !")
+        await ctx.send("Tu n'as pas la permission de me donner des ordres ! :angry:")
         print(birthday)
-        
+
 @bot.command()
 async def delete(ctx, name: str):
     if birthday.pop(name, None):
         await ctx.send("Gowther ! Effacement de mémoire !")
     else:
-        await ctx.send("Gowther ? Tu m'as déja effacé la mémoire?")
+        await ctx.send("Gowther? Tu m'as déja effacé la mémoire?")
     print(birthday)
 
 @tasks.loop(hours=24)
@@ -64,4 +65,4 @@ async def before():
     print("Finished waiting")
     
 called_once_a_day.start()
-bot.run('OTI4MzY2OTUzNjMzMDIxOTYy.YdXvGQ.0P2lMhnfrP5ul9LVGDSMlw5q2WU')
+bot.run('OTI5MTQwNjE0NjM1ODgwNDU5.Ydi_oQ.LjM77u0Ntug3i0LGjoic6tPbUq8')
