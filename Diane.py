@@ -47,7 +47,7 @@ async def delete(ctx, name: str):
     if birthday.pop(name, None):
         await ctx.send("Gowther ! Effacement de mémoire !")
     else:
-        await ctx.send("Gowther? Tu m'as déja effacé la mémoire?")
+        await ctx.send("Gowther ? Tu m'as déja effacé la mémoire?")
     print(birthday)
 
 @tasks.loop(hours=24)
